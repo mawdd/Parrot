@@ -6,11 +6,15 @@ Parrot sits quietly on your Mac and records your Google Meet, Zoom, or any other
 
 ---
 
-## Why I Built This
+## Hey! 👋
 
-I got tired of paying for meeting transcription services that send my conversations to some server I don't control. I wanted something like [Otter.ai](https://otter.ai/) but fully local and free. So I started building Parrot — a native macOS app that does speech-to-text entirely on-device using [WhisperKit](https://github.com/argmaxinc/WhisperKit) and Apple's Neural Engine.
+So here's the deal — I'm Uygar, and I'm trying to build my own meeting recorder from scratch. I got tired of paying for services like Otter.ai that send all my conversations to some server I don't control. I thought, "How hard can it be to do this locally on my Mac?" Turns out... it's a journey. 😄
 
-This is a personal project. I'm building it for fun and learning. It's not perfect, but it works, and I'm sharing it because maybe you want the same thing.
+I'm building this with the help of [Claude](https://claude.ai) (yes, the AI — we've had a lot of late-night coding sessions together), and honestly, it's been one of the most fun projects I've worked on. It's not perfect yet — there are still bugs I'm chasing, permissions that are being annoying, and features I haven't figured out. But the core works: it captures audio, transcribes in real-time using WhisperKit, and keeps everything on your machine.
+
+**This is a personal project. I'm learning as I go.** I'm sharing it publicly because why not? If there are any crazy coders out there who stumble upon this and want to help improve it, I would really, truly appreciate it. Whether it's fixing a bug, improving the speaker detection, or just telling me I'm doing something wrong — all of it helps. Open a PR, open an issue, or just say hi. 🙌
+
+If you find this useful or just think the idea is cool, give it a star. It'll make my day.
 
 ## What It Does
 
@@ -100,36 +104,47 @@ Parrot/
     MenuBarView.swift          # Menu bar extra
 ```
 
-## What's Next (Ideas / TODOs)
+## What's Next (My Wishlist)
 
-- [ ] Better speaker diarization (integrate [SpeakerKit](https://github.com/argmaxinc/argmax-oss-swift) from Argmax)
-- [ ] Meeting summaries & action items (local LLM, maybe MLX?)
-- [ ] Calendar integration (auto-name meetings)
-- [ ] Audio playback synced with transcript highlighting
-- [ ] Keyword bookmarks during recording
-- [ ] Better waveform visualization
-- [ ] App icon (currently using system bird icon)
-- [ ] Notarize and distribute outside Xcode
+Things I want to add but haven't figured out yet:
 
-## Contributing
+- [ ] **Real speaker diarization** — integrate [SpeakerKit](https://github.com/argmaxinc/argmax-oss-swift) so it actually knows who's talking
+- [ ] **Meeting summaries & action items** — maybe a local LLM via MLX? No cloud, obviously
+- [ ] **Calendar integration** — auto-name meetings based on what's on my calendar
+- [ ] **Audio playback synced with transcript** — click a line, hear that moment
+- [ ] **Keyword bookmarks** — mark important moments during a recording
+- [ ] **Better waveform visualization** — the current one is... functional
+- [ ] **A proper app icon** — currently using the system bird icon, which is fine but not *Parrot*
+- [ ] **Notarize and distribute** — so people can run it without Xcode
 
-This is a personal/learning project, but I'd love help! If you want to:
+If any of these excite you, jump in!
 
-- **Fix a bug** — Open a PR, I'll review it
-- **Improve diarization** — The current approach is very basic (energy-based). If you know CoreML/Pyannote, I'd love your help
-- **Add a feature** — Open an issue first so we can chat about it
-- **Report an issue** — Just open one, no template needed
+## Want to Help? 🙏
 
-## Known Issues
+Seriously, if you're into Swift/macOS development, audio processing, or ML on-device — I'd love your help. I'm one person building this in my spare time with Claude as my coding buddy, and there's a lot I don't know yet.
 
-- Screen Recording permission can be finicky when running from Xcode (the binary gets re-signed each build, which can invalidate the permission). If recording fails, remove Parrot from Screen Recording in System Settings, re-add it, and restart.
-- WhisperKit model download requires internet on first run
-- Speaker diarization is basic — it alternates speakers based on silence gaps, not voice fingerprinting
+Here's where I could really use a hand:
+
+- **Speaker diarization** — The current approach is embarrassingly basic (it just alternates speakers based on silence gaps). If you know anything about CoreML, Pyannote, or voice fingerprinting, please help me make this actually work.
+- **Screen Recording permission headaches** — macOS permissions are driving me a little crazy. If you've dealt with ScreenCaptureKit in sandboxed apps, I want to hear from you.
+- **Bug fixes** — Found something broken? Open a PR, I'll review it quickly.
+- **Feature ideas** — Open an issue and let's chat about it.
+- **Just vibes** — Even if you just want to say "cool project" or "this is dumb, do it this way instead" — I'm all ears.
+
+No formal process. No templates. Just open an issue or PR and we'll figure it out together.
+
+## Known Issues (I'm Working on It)
+
+- **Screen Recording permission is annoying** — When running from Xcode, the binary gets re-signed each build, which can invalidate the permission. If recording fails, remove Parrot from Screen Recording in System Settings, re-add it, and restart. I'm still figuring this one out.
+- **WhisperKit model download needs internet** — Only on first run. After that, everything is offline.
+- **Speaker diarization is... not great** — It basically alternates speakers when there's silence. I know. It's on my list.
 
 ## License
 
-This project is open source. Use it, learn from it, improve it.
+MIT — Use it, learn from it, improve it, do whatever you want with it.
 
 ---
 
-*Built with SwiftUI, WhisperKit, and a lot of Claude Code sessions at 3am.* 🌙
+*Built with SwiftUI, WhisperKit, and way too many late-night [Claude Code](https://claude.ai) sessions.* 🌙
+
+*If you're reading this and you've also tried to build something stupid-ambitious as a personal project — I see you. Keep going.* 🦜
