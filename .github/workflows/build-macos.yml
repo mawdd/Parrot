@@ -1,0 +1,58 @@
+name: Build Parrot macOS
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Resolve Swift packages
+        run: |
+          xcodebuild \
+            -resolvePackageDependencies \
+            -project Parrot.xcodeproj \
+            -scheme Parrot
+
+      - name: Build Parrot
+        run: |
+          xcodebuild \
+            -project Parrot.xcodeproj \
+            -scheme Parrot \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Ad-hoc sign app
+        run: |
+          codesign \
+            --force \
+            --deep \
+            --sign - \
+            --entitlements Parrot/Parrot.entitlements \
+            build/Build/Products/Release/Parrot.app
+
+      - name: Zip app
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent \
+            build/Build/Products/Release/Parrot.app \
+            Parrot-macOS.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Parrot-macOS
+          path: Parrot-macOS.zip
